@@ -9,13 +9,13 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.progressbar import ProgressBar
 
 class ScrButton(Button):
-    def __init__(self, screen, direction='right', goal ='main', **kwargs):
+    def __init__(self, screen, direction = 'right', goal = 'main', **kwargs):
         super().__init__(**kwargs)
         self.screen = screen
         self.direction = direction
         self.goal = goal
     def on_press(self):
-        self.screen.manager.trsnsition.direction = self.direction
+        self.screen.manager.transition.direction = self.direction
         self.screen.manager.current = self.goal
 
 class MainScr(Screen):
@@ -34,15 +34,14 @@ class MainScr(Screen):
 class FirstScr(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        vl = BoxLayout(orientation = 'vertical', size_hint = (.5, 5), pos_hint = {'center_x': 0.5, 'center_y': 0.5})
-        btn = Button(text = 'Выбор: 1', size_hint = (.5, 1), pos_hint = {'left':0})
-        btn_back = ScrButton(self, direction = 'up', goal = 'main', text = 'Назад', size_hint = (.5, 1), pos_hint = {'right':1})
+        vl = BoxLayout(orientation = 'vertical', size_hint = (.5 , 5), pos_hint = {'center_x' : 0.5, 'center_y' : 0.5})
+        btn = Button(text = 'Выбор: 1', size_hint = (.5, 1), pos_hint = {'left': 0})
+        btn_back = ScrButton(self, direction = 'up', goal = 'main', text = 'Назад', size_hint = (.5 , 1), pos_hint = {'right' : 1})
         prog = ProgressBar()
         vl.add_widget(prog)
         vl.add_widget(btn)
         vl.add_widget(btn_back)
         self.add_widget(vl)
-
 class SecondScr(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -64,38 +63,39 @@ class SecondScr(Screen):
         self.add_widget(vl)
         btn_false.on_press = self.change_text
     def change_text(self):
-        self.text = self.input.text + '? Не сработало ...'
-
+        self.txt.text = self. input.text + '? Не сработало ...'
 class ThirdScr(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         layout = BoxLayout(orientation = 'vertical')
         btn_back = ScrButton(self, direction = 'down', goal = 'main', text = 'Назад', size_hint = (1, None), height = '40sp')
-        text_label = Label(text = 'Твой собственный экран')
-        layout.add_widget(text_label)
+        test_label = Label(text = 'Твой собственный экран')
+        layout.add_widget(test_label)
         layout.add_widget(btn_back)
         self.add_widget(layout)
+
 
 class FourthScr(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         vl = BoxLayout(orientation = 'vertical', spacing = 8)
-        a = 'STEART' + 'Выбор: 3' * 200
-        test = Label(text = 'Дополнительное задание', size_hint = (0.3, None))
+        a = 'START' + 'Выбор: 3' * 200
+        test_label = Label(text = 'Дополнительное задание', size_hint = (0,3, None))
 
 
-        btn_back = ScrButton(self, direction = 'left', goal = 'main', text = 'Назад', size_hint = (1, .2), pos_hint = {'center_x':0.5})
+        btn_back = ScrButton(self, direction = 'left', goal = 'main', text = 'Назад', size_hint = (1, .2), pos_hint = {'center - x' : 0.5})
         self.label = Label(text = a, size_hint_y = None, font_size = '24sp', halign = 'left', valign = 'top')
         self.label.bind(size = self.resize)
         self.scroll = ScrollView(size_hint = (1, 1))
         self.scroll.add_widget(self.label)
 
-        vl.add_widget(test)
+
+        vl.add_widget(test_label)
         vl.add_widget(btn_back)
         vl.add_widget(self.scroll)
-        self.add_widget(vl) 
-    def resize(self, *args):
-        self.label.text_size = (self.lable.width, None)
+        self.add_widget(vl)
+    def resize(self, **kwargs):
+        self.label.text_size = (self.label.width, None)
         self.label.texture_update()
         self.label.height = self.label.texture_size[1]
 
@@ -107,6 +107,6 @@ class MyApp(App):
         sm.add_widget(FirstScr(name = 'first'))
         sm.add_widget(SecondScr(name = 'second'))
         sm.add_widget(ThirdScr(name = 'third'))
-        sm.add_widget(FourthScr(name = 'forth'))
+        sm.add_widget(FourthScr(name = 'fourth'))
         return sm
 MyApp().run()
